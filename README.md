@@ -3,7 +3,7 @@ Copyright (c) 2010 Yahoo! Inc., 2012 - 2016 YCSB contributors.
 All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you
-may not use this file except in compliance with the License. You
+may not use this file except in compliance with the License. You av
 may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
