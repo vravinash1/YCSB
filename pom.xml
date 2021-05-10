@@ -117,7 +117,7 @@ LICENSE file.
     <asynchbase.version>1.8.2</asynchbase.version>
     <azurecosmos.version>4.8.0</azurecosmos.version>
     <azurestorage.version>4.0.0</azurestorage.version>
-    <cassandra.cql.version>3.0.0</cassandra.cql.version>
+    <!--  <cassandra.cql.version>3.0.0</cassandra.cql.version>  -->
     <cloudspanner.version>2.0.1</cloudspanner.version>
     <couchbase.version>1.4.10</couchbase.version>
 		<couchbase2.version>2.3.1</couchbase2.version>
@@ -138,7 +138,7 @@ LICENSE file.
     <openjpa.jdbc.version>2.1.1</openjpa.jdbc.version>
     <orientdb.version>2.2.37</orientdb.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <redis.version>2.9.0</redis.version>
+    <redis.version>3.6.0</redis.version>
     <riak.version>2.0.5</riak.version>
     <rocksdb.version>6.2.2</rocksdb.version>
     <s3.version>1.10.20</s3.version>
@@ -164,7 +164,7 @@ LICENSE file.
     <module>asynchbase</module>
     <module>azurecosmos</module>
     <module>azuretablestorage</module>
-    <module>cassandra</module>
+    <!--<module>cassandra</module> -->
     <module>cloudspanner</module>
     <module>couchbase</module>
 		<module>couchbase2</module>
@@ -185,19 +185,19 @@ LICENSE file.
     <module>kudu</module>
     <module>maprdb</module>
     <module>maprjsondb</module>
-    <module>memcached</module>
+    <!-- <module>memcached</module> -->
     <module>mongodb</module>
     <module>nosqldb</module>
     <module>orientdb</module>
     <module>postgrenosql</module>
     <module>rados</module>
     <module>redis</module>
-    <module>rest</module>
+    <module>rest</module><!--  -->
     <module>riak</module>
-    <module>rocksdb</module>
+    <!-- <module>rocksdb</module> -->
     <module>s3</module>
     <module>seaweedfs</module>
-    <module>scylla</module>
+    <!-- <module>scylla</module> -->
     <module>solr7</module>
     <module>tarantool</module>
     <module>tablestore</module>
