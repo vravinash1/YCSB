@@ -14,16 +14,14 @@
  * permissions and limitations under the License. See accompanying
  * LICENSE file.
  */
-
-package site.ycsb.db.elasticsearch5;
-
-import site.ycsb.DB;
-
-public class ElasticsearchRestClientIT extends ElasticsearchIntegTestBase {
-
-  @Override
-  DB newDB() {
-    return new ElasticsearchRestClient();
-  }
-
-}
+/*
+ * package site.ycsb.db.elasticsearch5;
+ * 
+ * import site.ycsb.DB;
+ * 
+ * public class ElasticsearchRestClientIT extends ElasticsearchIntegTestBase {
+ * 
+ * @Override DB newDB() { return new ElasticsearchRestClient(); }
+ * 
+ * }
+ */

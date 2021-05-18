@@ -26,14 +26,21 @@ import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpStatus;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.nio.entity.NStringEntity;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.elasticsearch.client.Response;
 import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.common.xcontent.XContentBuilder;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,6 +65,8 @@ public class ElasticsearchRestClient extends DB {
 
   private static final String DEFAULT_INDEX_KEY = "es.ycsb";
   private static final String DEFAULT_REMOTE_HOST = "localhost:9200";
+  private static final String CUSERNAME = "es.cusername";
+  private static final String CPASSWORD = "es.cpassword";
   private static final int NUMBER_OF_SHARDS = 1;
   private static final int NUMBER_OF_REPLICAS = 0;
   private RestClient restClient;
@@ -71,6 +80,12 @@ public class ElasticsearchRestClient extends DB {
   @Override
   public void init() throws DBException {
     final Properties props = getProperties();
+    final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+    
+
+    credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(
+        props.getProperty("es.cusername", CUSERNAME), props.getProperty("es.cpassword", CPASSWORD)));
+
 
     this.indexKey = props.getProperty("es.index.key", DEFAULT_INDEX_KEY);
 
@@ -84,11 +99,30 @@ public class ElasticsearchRestClient extends DB {
     final List<HttpHost> esHttpHosts = new ArrayList<>(nodeList.length);
     for (String h : nodeList) {
       String[] nodes = h.split(":");
-      esHttpHosts.add(new HttpHost(nodes[0], Integer.valueOf(nodes[1]), "http"));
+      if(Integer.valueOf(nodes[1])==443){
+        esHttpHosts.add(new HttpHost(nodes[0], Integer.valueOf(nodes[1]), "https")); 
+      }else{
+        esHttpHosts.add(new HttpHost(nodes[0], Integer.valueOf(nodes[1]), "http"));
+      }
+      
     }
 
-    restClient = RestClient.builder(esHttpHosts.toArray(new HttpHost[esHttpHosts.size()])).build();
+    //restClient = RestClient.builder(esHttpHosts.toArray(new HttpHost[esHttpHosts.size()])).build();
 
+    restClient = RestClient.builder(
+        esHttpHosts.toArray(new HttpHost[esHttpHosts.size()]))
+
+            .setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
+
+                public HttpAsyncClientBuilder customizeHttpClient(
+
+                        final HttpAsyncClientBuilder httpAsyncClientBuilder) {
+
+                    return httpAsyncClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+
+                }
+
+            }).build();
     final Response existsResponse = performRequest(restClient, "HEAD", "/" + indexKey);
     final boolean exists = existsResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
 
@@ -227,7 +261,9 @@ public class ElasticsearchRestClient extends DB {
 
       final Map<String, Object> map = map(searchResponse);
       @SuppressWarnings("unchecked") final Map<String, Object> hits = (Map<String, Object>)map.get("hits");
-      final int total = (int)hits.get("total");
+      @SuppressWarnings("unchecked") final Map<String, Object> totalhits = (Map<String, Object>)hits.get("total");
+      final int total = (int) totalhits.get("value");     
+      //final int total = (int)hits.get("total");
       if (total == 0) {
         return Status.NOT_FOUND;
       }
@@ -266,10 +302,10 @@ public class ElasticsearchRestClient extends DB {
       } else if (statusCode != HttpStatus.SC_OK) {
         return Status.ERROR;
       }
-
       final Map<String, Object> map = map(searchResponse);
       @SuppressWarnings("unchecked") final Map<String, Object> hits = (Map<String, Object>)map.get("hits");
-      final int total = (int)hits.get("total");
+      @SuppressWarnings("unchecked") final Map<String, Object> totalhits = (Map<String, Object>)hits.get("total");
+      final int total = (int) totalhits.get("value");
       if (total == 0) {
         return Status.NOT_FOUND;
       }
@@ -309,7 +345,8 @@ public class ElasticsearchRestClient extends DB {
 
       final Map<String, Object> map = map(searchResponse);
       @SuppressWarnings("unchecked") final Map<String, Object> hits = (Map<String, Object>) map.get("hits");
-      final int total = (int) hits.get("total");
+      @SuppressWarnings("unchecked") final Map<String, Object> totalhits = (Map<String, Object>)hits.get("total");
+      final int total = (int) totalhits.get("value");
       if (total == 0) {
         return Status.NOT_FOUND;
       }
@@ -367,7 +404,6 @@ public class ElasticsearchRestClient extends DB {
         @SuppressWarnings("unchecked") final Map<String, Object> hits = (Map<String, Object>)map.get("hits");
         @SuppressWarnings("unchecked") final List<Map<String, Object>> list =
                 (List<Map<String, Object>>) hits.get("hits");
-
         for (final Map<String, Object> hit : list) {
           @SuppressWarnings("unchecked") final Map<String, Object> source = (Map<String, Object>)hit.get("_source");
           final HashMap<String, ByteIterator> entry;

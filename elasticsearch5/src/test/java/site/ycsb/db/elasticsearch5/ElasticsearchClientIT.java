@@ -15,15 +15,14 @@
  * LICENSE file.
  */
 
-package site.ycsb.db.elasticsearch5;
-
-import site.ycsb.DB;
-
-public class ElasticsearchClientIT extends ElasticsearchIntegTestBase {
-
-    @Override
-    DB newDB() {
-        return new ElasticsearchClient();
-    }
-
-}
+/*
+ * package site.ycsb.db.elasticsearch5;
+ * 
+ * import site.ycsb.DB;
+ * 
+ * public class ElasticsearchClientIT extends ElasticsearchIntegTestBase {
+ * 
+ * @Override DB newDB() { return new ElasticsearchClient(); }
+ * 
+ * }
+ */

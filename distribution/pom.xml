@@ -59,11 +59,12 @@ LICENSE file.
       <artifactId>asynchbase-binding</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
+   <!--  <dependency>
       <groupId>site.ycsb</groupId>
       <artifactId>cassandra-binding</artifactId>
       <version>${project.version}</version>
     </dependency>
+    --> 
     <dependency>
       <groupId>site.ycsb</groupId>
       <artifactId>cloudspanner-binding</artifactId>
@@ -164,12 +165,13 @@ LICENSE file.
       <artifactId>kudu-binding</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
+    <!-- <dependency>
       <groupId>site.ycsb</groupId>
       <artifactId>memcached-binding</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
+     -->
+     <dependency>
       <groupId>site.ycsb</groupId>
       <artifactId>maprdb-binding</artifactId>
       <version>${project.version}</version>
@@ -219,12 +221,13 @@ LICENSE file.
       <artifactId>riak-binding</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
+   <!--  <dependency>
       <groupId>site.ycsb</groupId>
       <artifactId>rocksdb-binding</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
+    -->
+     <dependency>
       <groupId>site.ycsb</groupId>
       <artifactId>s3-binding</artifactId>
       <version>${project.version}</version>
@@ -234,11 +237,11 @@ LICENSE file.
       <artifactId>seaweedfs-binding</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
+    <!-- <dependency>
       <groupId>site.ycsb</groupId>
       <artifactId>scylla-binding</artifactId>
       <version>${project.version}</version>
-    </dependency>
+    </dependency> -->
     <dependency>
       <groupId>site.ycsb</groupId>
       <artifactId>solr7-binding</artifactId>
