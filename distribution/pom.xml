@@ -59,7 +59,7 @@ LICENSE file.
       <artifactId>asynchbase-binding</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
+     <dependency>
       <groupId>site.ycsb</groupId>
       <artifactId>cassandra-binding</artifactId>
       <version>${project.version}</version>
@@ -169,7 +169,7 @@ LICENSE file.
       <artifactId>memcached-binding</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
+     <dependency>
       <groupId>site.ycsb</groupId>
       <artifactId>maprdb-binding</artifactId>
       <version>${project.version}</version>
@@ -224,7 +224,7 @@ LICENSE file.
       <artifactId>rocksdb-binding</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
+     <dependency>
       <groupId>site.ycsb</groupId>
       <artifactId>s3-binding</artifactId>
       <version>${project.version}</version>
